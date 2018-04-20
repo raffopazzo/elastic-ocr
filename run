@@ -1,0 +1,19 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]
+then
+  echo "syntax $0: <file> [<file>...]"
+  exit 1
+fi
+
+id=0
+
+for f in "$@"
+do
+  id=$((id+1))
+  cat "$f" | docker run -i --rm \
+    --network container:elasticocr_elasticsearch_1 \
+    -e ELASTIC_URL=http://localhost:9200 \
+    --entrypoint elastic-ocr elastic-ocr \
+    documents $id
+done

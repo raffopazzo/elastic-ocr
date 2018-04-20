@@ -1,0 +1,3 @@
+#!/bin/bash
+
+docker build --build-arg http_proxy=http://proxy-bv.mavensecurities.com -t elastic-ocr .
