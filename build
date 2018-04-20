@@ -1,3 +1,14 @@
 #!/bin/bash
 
-docker build --build-arg http_proxy=http://proxy-bv.mavensecurities.com -t elastic-ocr .
+declare -a flags
+if [ -n "${http_proxy}" ]; then
+  flags+=(--build-arg http_proxy=${http_proxy})
+fi
+if [ -n "${https_proxy}" ]; then
+  flags+=(--build-arg https_proxy=${https_proxy})
+fi
+if [ -n "${ftp_proxy}" ]; then
+  flags+=(--build-arg ftp_proxy=${ftp_proxy})
+fi
+
+docker build "${flags[@]}" -t elastic-ocr .
