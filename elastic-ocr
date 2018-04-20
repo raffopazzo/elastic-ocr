@@ -28,7 +28,7 @@ convert_args+=(-alpha off)
 convert_args+=(-strip)
 
 convert "${convert_args[@]}" - temp.tiff
-tesseract temp.tiff stdout \
+tesseract temp.tiff stdout -l ita \
   | grep -v '^ *$' \
   | jq -R -s '{"content": tostring}' \
   > temp.json
